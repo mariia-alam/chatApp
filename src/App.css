@@ -2,7 +2,6 @@
 body {
     font-family: 'Inter', sans-serif;
     overflow:hidden;
-
 }
 
 .home{
@@ -42,7 +41,6 @@ button:hover {
 
 
 @media (max-width: 768px) {
-
     .home h1 {
         font-size: 3rem;
     }
@@ -63,6 +61,9 @@ button:hover {
 
 
 .common {
+    overflow:hidden;
+        position: relative; /* لضمان أن العناصر المطلقة مرتبطة بهذه الحاوية */
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -143,6 +144,22 @@ form button {
         width:70%;
     }
 }
+.signuppassword{
+            position: absolute;
+                            right: 3rem;
+                            top: 56.5%;
+                            transform: translateY(-50%);
+                            cursor: pointer;
+                            color: #888;
+}
+.loginpassword{
+                position: absolute;
+                            right: 3rem;
+                            top: 48%;
+                            transform: translateY(-50%);
+                            cursor: pointer;
+                            color: #888;
+}
 
 .left {
     position: absolute;
@@ -185,6 +202,8 @@ top: -20px;
 border-radius: 50%;
 background: #8666B8;
 }
+
+
 @media (max-width: 768px) {
 .left {
     width: 200px;
