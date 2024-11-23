@@ -90,12 +90,14 @@ body {
     left: 16rem ;
 }
 .header-left {
-    padding-left:5.5rem;
+    padding-left:7rem;
 }
 .header-left img{
     position: absolute;
     right: 17rem ;
     width: 50%;
+        padding-left:3rem;
+
 }
 .landing main{
     margin-top:8rem;
