@@ -155,7 +155,7 @@ button:hover {
 @media (max-width: 768px) {
     .logo{
     width:40%;
-    height:21%;
+    height:25%;
     background-size: 250%;
 
 }
@@ -285,9 +285,9 @@ form button {
 .loginpassword{
     position: absolute;
     font-size:2rem;
-    right: 30rem;
-    top: 54%;
-    transform: translateY(-50%);
+    right: 1rem;
+    /* top: 54%; */
+    transform: translateY(80%);
     cursor: pointer;
     color: #888;
 }
@@ -308,8 +308,9 @@ form button {
 
 }
 .loginpassword{
-        right: 3rem;
-        top: 48.2%;
+        right: 1rem;
+        /* top: 48.2%; */
+        transform: translateY(50%);
         font-size:1.5rem;
 
 }

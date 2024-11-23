@@ -19,10 +19,12 @@ export default function Login(){
             <h2>Login</h2>
             <hr/>
             <form onSubmit={handleSubmit}>
+
                 <input type="email"
                 name="name"
                 placeholder="Enter Your Email"
                 required />
+                <div className="password">
                 <input type={passwordVisible ? "text" : "password"}
                 name="password"
                 placeholder="Password"
@@ -30,6 +32,8 @@ export default function Login(){
                 <span className="loginpassword" onClick={togglePasswordVisibility}>
                 {passwordVisible ? <FaEyeSlash></FaEyeSlash> : <FaEye/>}
                 </span>
+                </div>
+
                 <button>Login</button>
             </form>
         </div>
