@@ -16,11 +16,10 @@ body {
     width: 100%;
     font-weight:800;
     color:white;
-    font-size:5rem;
-    font-style:italic;
 }
 .landing header {
     margin: auto;
+    padding-top:1.3rem;
     height: 15%;
     width: 100%;
     display: flex;
@@ -44,11 +43,14 @@ body {
     width: 50%;
 }
 .landing main{
-    margin-top:2rem;
     padding:5rem;
-    display:felx;
+    margin-top:2rem;
+    display:flex;
     flex-direction: column;
-    align-items:center;
+    align-items:flex-start;
+    gap:1rem;
+    font-size:6rem;
+    font-style:italic;
 }
 .landing a{
     cursor: pointer;
@@ -72,12 +74,11 @@ body {
 }
 @media (max-width: 768px) {
 .landing{
+    position:relative;
     overflow:hidden;
     background-image: url('./assets/landing.png');
     background-size: cover;
-    background-position: right 60%  top  ;
-    font-weight:800;
-    font-size:3rem;
+    background-position: right 65%  top  ;
 }
 .landing header {
     height: 10%;
@@ -85,17 +86,21 @@ body {
 }
 
 .header-right {
-    padding:2rem;
+    position: absolute;
+    left: 16rem ;
 }
 .header-left {
-    padding-right:5rem;
+    padding-left:5.5rem;
 }
 .header-left img{
+    position: absolute;
+    right: 17rem ;
     width: 50%;
 }
 .landing main{
     margin-top:8rem;
     padding:1.5rem;
+    font-size:3rem;
 }
 .landing a{
     font-size:1rem;
@@ -110,7 +115,7 @@ body {
 /* get started page */
 .logo{
     width:30%;
-    height:30%;
+    height:35%;
     background-size: 110%;
     background-image: url('./assets/logo11.png');
     background-position: center center ;
@@ -127,23 +132,21 @@ body {
     text-align: center;
     background: #7A54B7;
     color: white;
-    gap: 1.5rem;
-    font-size: 1rem;
+    gap: 1rem;
+    font-size: 1.5rem;
 
   }
-  .home h1{
-    font-size: 5rem;
-  }
+
   .home button{
     color: black;
     background-color: white;
     border: none;
-    width: 50%;
-    height: 10%;
+    width: 40%;
+    height: 8%;
     border-radius: 0.5rem;
     cursor: pointer;
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2rem;
     transition: box-shadow 0.3s ease, transform 0.2s ease;
   }
 button:hover {
@@ -198,17 +201,8 @@ button:hover {
     color: black;
     gap: 1.5rem;
     width: 100%;
-    width:100%;
-}
-.signup{
-    padding-top:8rem;
 }
 
-@media (max-width: 768px) {
-.common{
-    padding-top:12rem;
-}
-}
 
 .common h2 {
     font-weight:700;
@@ -226,21 +220,21 @@ form {
     display: flex;
     flex-direction: column;
     justify-content:center;
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
     border: none;
 }
 form input{
     margin:auto;
-    width:50%;
-    padding: 2rem;
-    font-size: 1.5rem;
+    width:40%;
+    padding: 1rem;
+    font-size: 1rem;
     border: none;
     outline: none;
 }
 
 form button {
-    padding: 1.5rem;
+    padding: 1rem;
     background: #8764BE;
     color: white;
     border: none;
@@ -248,9 +242,9 @@ form button {
     cursor: pointer;
     width:auto;
     align-self: center;
-    font-size: 2rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    width:30%;
+    width:10%;
 }
 @media (max-width: 768px) {
 .common{
@@ -274,10 +268,13 @@ form button {
         width:40%;
     }
 }
+
+
+
 .password{
     margin:auto;
     position:relative;
-    width:50%;
+    width:40%;
 }
 .password input{
     width:100%;
@@ -285,18 +282,18 @@ form button {
 .signuppassword{
     position: absolute;
     right: 1rem;
-    font-size:2rem;
+    font-size:1.5rem;
     /* top: 59%; */
-    transform: translateY(80%);
+    transform: translateY(50%);
     cursor: pointer;
     color: #888;
 }
 .loginpassword{
     position: absolute;
-    font-size:2rem;
+    font-size:1.5rem;
     right: 1rem;
     /* top: 54%; */
-    transform: translateY(80%);
+    transform: translateY(50%);
     cursor: pointer;
     color: #888;
 }
@@ -305,6 +302,7 @@ form button {
 @media (max-width: 768px) {
     .password{
     position:relative;
+    width:50%;
 }
 .password input{
     width:100%;
