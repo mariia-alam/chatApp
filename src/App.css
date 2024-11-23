@@ -182,11 +182,11 @@ button:hover {
 }
 
 
+/* login signup */
 
 .common {
     overflow:hidden;
-        position: relative; /* لضمان أن العناصر المطلقة مرتبطة بهذه الحاوية */
-
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -204,10 +204,10 @@ button:hover {
     padding-top: 10rem;
 }
 @media (max-width: 768px) {
+.common{
+    padding-top:12rem;
+}
 
-    .signup{
-        padding-top:15rem;
-    }
 }
 
 .common h2 {
@@ -250,7 +250,6 @@ form button {
     width:40%;
 }
 
-@media (max-width: 768px) {
     form {
         width: 80%;
         gap:1.5rem;
@@ -266,7 +265,7 @@ form button {
         padding: 0.8rem;
         width:70%;
     }
-}
+
 .password{
     position:relative;
 }
@@ -338,7 +337,6 @@ form button {
     filter: blur(1px);
 }
 .bottom{
-
 position: absolute;
 width: 312px;
 height: 312px;
@@ -364,20 +362,20 @@ background: #8666B8;
     width: 200px;
     height: 200px;
     left: -26px;
-    top: -63px;
+    top: -120px;
 }
 
 .right {
     width: 350px;
     height: 350px;
     right: -50px;
-    top: -110px;
+    top: -167px;
 }
 .bottom{
-width: 150px;
-height: 150px;
-left: -10px;
-top: 790px;
+    width: 150px;
+    height: 150px;
+    left: -10px;
+    top: 790px;
 }
 .bottom::before {
 width: 70px;
