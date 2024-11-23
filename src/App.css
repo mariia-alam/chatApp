@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import 'normalize.css';
 
 body {
     font-family: 'Inter', sans-serif;
@@ -380,7 +381,7 @@ background: #8666B8;
     width: 150px;
     height: 150px;
     left: -10px;
-    top: 790px;
+    top: 700px;
 }
 .bottom::before {
 width: 70px;

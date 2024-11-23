@@ -16,7 +16,7 @@ export default function SignUp(){
     }
 
 
-    function handleSubmit(event){
+     async function handleSubmit(event){
         event.preventDefault();
         const data = new FormData(event.target);
         const userInfo = Object.fromEntries(data.entries());
@@ -33,7 +33,33 @@ export default function SignUp(){
         setError("");
         setPasswordError("");
         console.log(userInfo);
-    }
+
+        try{
+            const response = await fetch("http://localhost:3000/signup",{
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: userInfo.email,
+                    username: userInfo.name,
+                    password: userInfo.password,
+                    repassword: userInfo.confirmPassword
+                }),
+            });
+                if (response.ok) {
+                const responseData = await response.json();
+                console.log("User created successfully:", responseData);
+
+                } else {
+                const errorData = await response.json();
+                setError(errorData.errMsg || "Internal server error");
+                }
+        } catch (err) {
+            console.error("Error during signup:", err);
+            setError("Internal server error");
+        }
+}
     return(
         <div className="signup common">
                 <p className="left"></p>
