@@ -4,6 +4,9 @@ body {
     font-family: 'Inter', sans-serif;
     overflow:hidden;
 }
+.password input{
+    width:100%;
+}
 /* Landing Page */
 
 .landing{

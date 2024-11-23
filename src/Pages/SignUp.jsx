@@ -52,7 +52,9 @@ export default function SignUp(){
                 type="email"
                 placeholder="Enter Your Email"
                 required />
-                <input
+                <div className="password">
+
+<input
                 id="password"
                 name="password"
                 type={passwordVisible ? "text" : "password"}
@@ -61,6 +63,8 @@ export default function SignUp(){
                 <span className="signuppassword" onClick={togglePasswordVisibility}>
                         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                 </span>
+                </div>
+                
                 <input
                 id="confirmPassword"
                 name="confirmPassword"
