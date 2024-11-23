@@ -4,9 +4,7 @@ body {
     font-family: 'Inter', sans-serif;
     overflow:hidden;
 }
-.password input{
-    width:100%;
-}
+
 /* Landing Page */
 
 .landing{
@@ -269,12 +267,18 @@ form button {
         width:70%;
     }
 }
+.password{
+    position:relative;
+}
+.password input{
+    width:100%;
+}
 .signuppassword{
     position: absolute;
-    right: 30rem;
+    right: 1rem;
     font-size:2rem;
-    top: 59%;
-    transform: translateY(-50%);
+    /* top: 59%; */
+    transform: translateY(80%);
     cursor: pointer;
     color: #888;
 }
@@ -290,10 +294,18 @@ form button {
 
 
 @media (max-width: 768px) {
+    .password{
+    position:relative;
+}
+.password input{
+    width:100%;
+}
 .signuppassword{
-        right: 3rem;
-        top: 56.5%;
+        right: 1rem;
+        /* top: 56.5%; */
         font-size:1.5rem;
+            transform: translateY(50%);
+
 }
 .loginpassword{
         right: 3rem;
