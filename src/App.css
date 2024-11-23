@@ -1,15 +1,126 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 body {
     font-family: 'Inter', sans-serif;
     overflow:hidden;
 }
+/* Landing Page */
 
+.landing{
+    background-image: url('./assets/landing.png');
+    /* background-size: cover; */
+    background-size: 120%;
+    background-position: right 100% top  ;
+    height: 100vh;
+    width: 100%;
+    font-weight:800;
+    color:white;
+    font-size:5rem;
+    font-style:italic;
+}
+.landing header {
+    margin: auto;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header-right {
+    padding:5rem;
+    display: flex;
+    align-items: center;
+}
+.header-left img{
+    width: 50%;
+}
+.landing main{
+    margin-top:2rem;
+    padding:5rem;
+    display:felx;
+    flex-direction: column;
+    align-items:center;
+}
+.landing a{
+    cursor: pointer;
+    font-size:1.5rem;
+}
+.landing a:hover{
+    text-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.02);
+}
+.landing button{
+    border:none;
+    font-size:1.5rem;
+    font-weight:700;
+    padding:1rem;
+    padding-left:2rem;
+    padding-right:2rem;
+    background-color:white;
+    color: #9759C7;
+    border-radius:0.5rem;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+.landing{
+    overflow:hidden;
+    background-image: url('./assets/landing.png');
+    background-size: cover;
+    background-position: right 60%  top  ;
+    font-weight:800;
+    font-size:3rem;
+}
+.landing header {
+    height: 10%;
+    width:100%
+}
+
+.header-right {
+    padding:2rem;
+}
+.header-left {
+    padding-right:5rem;
+}
+.header-left img{
+    width: 50%;
+}
+.landing main{
+    margin-top:8rem;
+    padding:1.5rem;
+}
+.landing a{
+    font-size:1rem;
+}
+.landing button{
+    padding-left:1rem;
+    padding-right:1rem;
+    border-radius:0.5rem;
+}
+}
+
+/* get started page */
+.logo{
+    width:30%;
+    height:30%;
+    background-size: 110%;
+    background-image: url('./assets/logo11.png');
+    background-position: center center ;
+
+}
 .home{
+    padding-top:5rem;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
     justify-content: flex-start;
-    padding-top: 15rem;
     align-items: center;
     height: 100vh;
     text-align: center;
@@ -41,6 +152,17 @@ button:hover {
 
 
 @media (max-width: 768px) {
+    .logo{
+    width:40%;
+    height:21%;
+    background-size: 250%;
+
+}
+.home{
+    overflow:hidden;
+    padding-top:5rem;
+
+}
     .home h1 {
         font-size: 3rem;
     }
@@ -145,20 +267,37 @@ form button {
     }
 }
 .signuppassword{
-            position: absolute;
-                            right: 3rem;
-                            top: 56.5%;
-                            transform: translateY(-50%);
-                            cursor: pointer;
-                            color: #888;
+    position: absolute;
+    right: 30rem;
+    font-size:2rem;
+    top: 59%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
 }
 .loginpassword{
-                position: absolute;
-                            right: 3rem;
-                            top: 48%;
-                            transform: translateY(-50%);
-                            cursor: pointer;
-                            color: #888;
+    position: absolute;
+    font-size:2rem;
+    right: 30rem;
+    top: 54%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+
+
+@media (max-width: 768px) {
+.signuppassword{
+        right: 3rem;
+        top: 56.5%;
+        font-size:1.5rem;
+}
+.loginpassword{
+        right: 3rem;
+        top: 48.2%;
+        font-size:1.5rem;
+
+}
 }
 
 .left {
