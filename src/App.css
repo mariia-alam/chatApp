@@ -200,14 +200,14 @@ button:hover {
     width: 100%;
     width:100%;
 }
-.signup {
-    padding-top: 10rem;
+.signup{
+    padding-top:8rem;
 }
+
 @media (max-width: 768px) {
 .common{
     padding-top:12rem;
 }
-
 }
 
 .common h2 {
@@ -225,11 +225,14 @@ hr {
 form {
     display: flex;
     flex-direction: column;
+    justify-content:center;
     gap: 2rem;
-    width: 50%;
+    width: 100%;
     border: none;
 }
 form input{
+    margin:auto;
+    width:50%;
     padding: 2rem;
     font-size: 1.5rem;
     border: none;
@@ -247,15 +250,20 @@ form button {
     align-self: center;
     font-size: 2rem;
     font-weight: 700;
-    width:40%;
+    width:30%;
+}
+@media (max-width: 768px) {
+.common{
+    padding-top:12rem;
 }
 
     form {
-        width: 80%;
+        width: 150%;
         gap:1.5rem;
     }
 
     form input {
+        width: 50%;
         font-size: 1rem;
         padding: 1rem;
     }
@@ -263,11 +271,13 @@ form button {
     form button {
         font-size: 1.2rem;
         padding: 0.8rem;
-        width:70%;
+        width:40%;
     }
-
+}
 .password{
+    margin:auto;
     position:relative;
+    width:50%;
 }
 .password input{
     width:100%;
