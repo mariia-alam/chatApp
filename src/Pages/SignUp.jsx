@@ -1,6 +1,9 @@
 import { useState } from "react";
+import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 export default function SignUp(){
+    const navigate = useNavigate();
     const [error, setError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -50,7 +53,15 @@ export default function SignUp(){
                 if (response.ok) {
                 const responseData = await response.json();
                 console.log("User created successfully:", responseData);
-
+                    Swal.fire({
+                    title: 'Sinup completed successfully ',
+                    text: 'Log in to continue',
+                    icon: 'success', //success, error, warning, info, question
+                    confirmButtonText: 'Ok',
+                    width: '400px',
+                    confirmButtonColor: '#9759C7',
+                    });
+                navigate('/login')
                 } else {
                 const errorData = await response.json();
                 setError(errorData.errMsg || "Internal server error");

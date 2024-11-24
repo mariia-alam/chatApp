@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function Login(){
+    const navigate = useNavigate();
     const [error, setError] = useState("");
     const [passwordVisible , setPasswordVisible] = useState(false);
     function togglePasswordVisibility(){
@@ -28,9 +30,11 @@ export default function Login(){
             const responseData = await response.json();
             console.log("Login successful:", responseData);
 
-            //LocalStorage 
+            //LocalStorage
             localStorage.setItem("authToken", responseData.token);
-            alert("Login successful!");
+            // alert("Login successful!");
+            navigate("/rooms");
+
         } else {
             const errorData = await response.json();
             setError(errorData.errMsg || "Internal server error");
