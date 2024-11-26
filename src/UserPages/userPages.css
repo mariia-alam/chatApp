@@ -465,9 +465,7 @@ background: #8764C2;
     border-radius:0.8rem;
 }
 .custom-alert-position {
-    /* top: -200px; !important; */
-    /* right: 150px !important; */
-    /* position: absolute !important; */
+font-size:1rem;
     border-radius:1.5rem;
 }
 
@@ -512,7 +510,7 @@ background: #8764C2;
 }
 
 .error-icon {
-    width: 300px;
+    width: 250px;
     margin-bottom: 10px;
     padding-left: 50px;
 }
