@@ -139,7 +139,6 @@ const result= await Swal.fire({
                 ))}
                 {rooms.map((room) => (<CreateRoom name={room.host.username} date={room.updatedAt} key={room.id}></CreateRoom>
                 ))}
-
             </main>
             {error && <Error message={error}/>}
 

@@ -36,10 +36,10 @@ body {
 }
 #profile{
     margin-right:3rem;
-    width:4rem;
+    width:3rem;
 }
 #search{
-    width:5rem;
+    width:4rem;
 }
 
 .nav{
@@ -47,7 +47,7 @@ body {
     /* padding-right:rem; */
     /* background: green; */
     width:95%;
-    height:14%;
+    height:10%;
     margin:auto;
     display:flex;
     flex-direction:row;
@@ -57,7 +57,7 @@ body {
 }
 .nav .nav-left{
 margin-left:5rem;
-font-size:2rem;
+font-size:1.5rem;
 }
 .nav-right{
     margin-right:2.5rem;
@@ -71,7 +71,7 @@ font-size:2rem;
 padding:1rem;
 border-radius:1rem;
 border:none;
-font-size:1.5rem;
+font-size:1.2rem;
 color:#8764C2;
 font-weight:700;
 }
@@ -230,7 +230,7 @@ padding:5rem;
 main .room {
     padding:2rem;
     padding-left:5rem;
-    height:17%;
+    height:20%;
     display: grid;
     gap:1rem;
     grid-template-columns: minmax(100px, 3fr) minmax(50px, 1fr);
@@ -475,6 +475,7 @@ background: #8764C2;
 /* error popup */
 .custom-popup-error {
     border-radius: 20px;
+    width:400px;
 }
 .custom-cancel-button-error {
     border-radius:0.8rem;
@@ -514,7 +515,7 @@ background: #8764C2;
 .error-icon {
     width: 250px;
     margin-bottom: 10px;
-    padding-left: 60px;
+    padding-left: 55px;
 }
 .custom-cancel-button-error {
     border-radius:0.8rem;
