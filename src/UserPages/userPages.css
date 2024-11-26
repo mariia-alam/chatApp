@@ -465,7 +465,6 @@ background: #8764C2;
     border-radius:0.8rem;
 }
 .custom-alert-position {
-font-size:1rem;
     border-radius:1.5rem;
 }
 
@@ -504,6 +503,9 @@ font-size:1rem;
 
 /* mobile popup error */
 @media (max-width: 768px) {
+  .title{
+    font-size:1rem;
+  }
   .error-popup {
     text-align: center;
     height: 300px;
@@ -512,7 +514,7 @@ font-size:1rem;
 .error-icon {
     width: 250px;
     margin-bottom: 10px;
-    padding-left: 50px;
+    padding-left: 60px;
 }
 .custom-cancel-button-error {
     border-radius:0.8rem;

@@ -27,6 +27,7 @@ const result= await Swal.fire({
     cancelButtonColor: '#d33',
     width: '400px',
     customClass: {
+        title:'title',
         popup: 'custom-alert-position',
         confirmButton: 'custom-confirm-button',
         cancelButton: 'custom-cancel-button'
