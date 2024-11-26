@@ -6,11 +6,11 @@ export default function Error({message}) {
     useEffect(() => {
         Swal.fire({
         html: `
-            <div style="text-align: center; height: 350px;">
-            <img src="${error}" alt="Error Icon" style="width: 350px; margin-bottom: 10px; padding-left: 90px;" />
-            <h2 style="margin-bottom: 10px; color: #333;">Error</h2>
-            <p style="color: #555;">${message}</p>
-            </div>
+                <div class="error-popup">
+                    <img src="${error}" alt="Error Icon" class="error-icon" />
+                    <h2 class="error-title">Error</h2>
+                    <p class="error-message">${message}</p>
+                </div>
         `,
         showCancelButton: true,
         showConfirmButton: false,

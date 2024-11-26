@@ -471,8 +471,11 @@ background: #8764C2;
     border-radius:1.5rem;
 }
 
-/* error popup */
 
+
+
+
+/* error popup */
 .custom-popup-error {
     border-radius: 20px;
 }
@@ -481,4 +484,41 @@ background: #8764C2;
     color:black;
     font-size:1.5rem;
 }
+.error-popup {
+    text-align: center;
+    height: 350px;
+}
 
+.error-icon {
+    width: 350px;
+    margin-bottom: 10px;
+    padding-left: 90px;
+}
+
+.error-title {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.error-message {
+    color: #555;
+}
+
+/* mobile popup error */
+@media (max-width: 768px) {
+  .error-popup {
+    text-align: center;
+    height: 300px;
+}
+
+.error-icon {
+    width: 300px;
+    margin-bottom: 10px;
+    padding-left: 60px;
+}
+.custom-cancel-button-error {
+    border-radius:0.8rem;
+    color:black;
+    font-size:1rem;
+}
+}

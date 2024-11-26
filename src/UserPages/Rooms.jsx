@@ -91,11 +91,11 @@ const result= await Swal.fire({
 
 
 useEffect(() => {
-    setError("");  // إعادة تعيين الخطأ عند تحميل الصفحة
-    const currentTime = Date.now() / 1000; // الوقت الحالي بالثواني
+    setError("");
+    const currentTime = Date.now() / 1000;
     if (token) {
-        const tokenData = JSON.parse(atob(token.split('.')[1])); // فك التوكن واستخراج البيانات
-        if (tokenData.exp < currentTime) { // تحقق من انتهاء صلاحية التوكن
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        if (tokenData.exp < currentTime) {
             setError("Please log in again to continue")
             navigate("/login");
             localStorage.removeItem("authToken");

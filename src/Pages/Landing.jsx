@@ -1,7 +1,7 @@
 // import Swal from 'sweetalert2';
 import logo from '../assets/logo11.png';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState ,useEffect } from 'react';
 import Error from '../Component/Error';
 
 export default function Landing() {
@@ -11,12 +11,17 @@ export default function Landing() {
 
 
     function handleRoomsClick(){
+        setError("");
         if (!token){
             setError("Please log in first")
         }else{
             navigate('/rooms')
         }
     }
+    useEffect(() => {
+        setError("");
+    }, [error]);
+
 
     function handleGetStartedClick() {
         if (!token) {
