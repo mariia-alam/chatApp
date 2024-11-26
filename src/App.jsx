@@ -1,4 +1,5 @@
 import './App.css'
+import './UserPages/userPages.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Pages/Login';
 import SignUp from "./Pages/SignUp";

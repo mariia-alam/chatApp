@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 export default function SignUp(){
+    const token = localStorage.getItem("authToken");
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const [passwordError, setPasswordError] = useState("");
@@ -60,6 +61,9 @@ export default function SignUp(){
                     confirmButtonText: 'Ok',
                     width: '400px',
                     confirmButtonColor: '#9759C7',
+                    customClass: {
+                    popup: 'custom-popup-error',
+      },
                     });
                 navigate('/login')
                 } else {
@@ -71,6 +75,14 @@ export default function SignUp(){
             setError("Internal server error");
         }
 }
+
+    useEffect(() => {
+        if (token) {
+            navigate('/rooms');
+        }
+    }, [token, navigate]);
+
+
     return(
         <div className="signup common">
                 <p className="left"></p>

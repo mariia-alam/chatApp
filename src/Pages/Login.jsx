@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function Login(){
     const navigate = useNavigate();
@@ -47,6 +47,7 @@ export default function Login(){
     }
 
     }
+
     return(
         <div className="common">
                 <p className="left"></p>

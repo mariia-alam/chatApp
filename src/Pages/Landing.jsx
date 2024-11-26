@@ -1,27 +1,18 @@
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import logo from '../assets/logo11.png';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Error from '../Component/Error';
 
 export default function Landing() {
-    const [token, setToken] = useState(localStorage.getItem("authToken"));
+    const [error , setError] = useState("")
+    const token = localStorage.getItem("authToken");
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const savedToken = localStorage.getItem("authToken");
-        setToken(savedToken);
-    }, []);
 
     function handleRoomsClick(){
-        if (!token) {
-            Swal.fire({
-                    title: 'Please',
-                    text: 'Log in first',
-                    // icon: 'error', //success, error, warning, info, question
-                    confirmButtonText: 'Ok',
-                    width: '400px',
-                    confirmButtonColor: '#9759C7',
-                    });
+        if (!token){
+            setError("Please log in first")
         }else{
             navigate('/rooms')
         }
@@ -54,6 +45,7 @@ export default function Landing() {
                 <p>Connect, Chat, and<br/>Discover:<br/>Your New Friends<br/>Await</p>
                 <button onClick={handleGetStartedClick} className='get-started'>Get Started</button>
             </main>
+                        {error && <Error message={error}/>}
         </div>
     );
 }
