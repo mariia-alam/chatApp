@@ -11,13 +11,14 @@ export default function Landing() {
 
 
     function handleRoomsClick(){
-        setError("");
-        if (!token){
-            setError("Please log in first")
-        }else{
+        // setError("");
+        // if (!token){
+        //     setError("Please log in first")
+        // }else{
             navigate('/rooms')
-        }
+        // }
     }
+
     useEffect(() => {
         setError("");
     }, [error]);

@@ -16,7 +16,7 @@ export default function Error({message}) {
         showConfirmButton: false,
         cancelButtonText: 'Ok',
         cancelButtonColor: '#F32D4A',
-        width: '400px',
+        // width: '400px',
         position: 'center',
         heightAuto: false,
         customClass: {

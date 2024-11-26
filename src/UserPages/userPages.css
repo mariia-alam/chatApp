@@ -514,11 +514,14 @@ background: #8764C2;
 .error-icon {
     width: 300px;
     margin-bottom: 10px;
-    padding-left: 60px;
+    padding-left: 50px;
 }
 .custom-cancel-button-error {
     border-radius:0.8rem;
     color:black;
     font-size:1rem;
+}
+.custom-popup-error {
+width:300px;
 }
 }
