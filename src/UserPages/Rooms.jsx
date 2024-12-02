@@ -95,21 +95,22 @@ const result= await Swal.fire({
 }, []);
 
 
-useEffect(() => {
-    setError("");
-    const currentTime = Date.now() / 1000;
-    if (token) {
-        const tokenData = JSON.parse(atob(token.split('.')[1]));
-        if (tokenData.exp < currentTime) {
-            setError("Please log in again to continue")
-            navigate("/login");
-            localStorage.removeItem("authToken");
-        }
-    }else{
-        setError("Please log in again to continue")
-        navigate('/login')
-    }
-}, [token, navigate]);
+// useEffect(() => {
+//     setError("");
+//     const currentTime = Date.now() / 1000;
+//     if (token) {
+//         const tokenData = JSON.parse(atob(token.split('.')[1]));
+//         if (tokenData.exp < currentTime) {
+//             setError("Please log in again to continue")
+//             navigate("/login");
+//             localStorage.removeItem("authToken");
+//         }
+//     }else{
+//         setError("Please log in again to continue")
+//         navigate('/login')
+//     }
+// }, [token, navigate]);
+
 
     return(
         <div className="rooms">
