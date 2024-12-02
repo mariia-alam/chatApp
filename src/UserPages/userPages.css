@@ -591,14 +591,16 @@ font-weight:500;
 
 .chatting main {
     width:100%;
-    height: calc(100vh - 10rem - 4rem);
+    height: calc(100vh - 10rem - 3rem);
     position:fixed;
     overflow:hidden;
     z-index:10;
     margin-top:9rem;
+    /* margin-bottom:1rem; */
     overflow-y: auto;
     background: #CCCBD6;
     padding: 0.7rem;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     border-top-left-radius: 4rem;
