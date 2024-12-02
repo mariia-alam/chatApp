@@ -53,34 +53,33 @@ export default function CreateRoom({ name, date, roomId }) {
     }
     async function handleGetRoom() {
         setError("");
-        navigate('/room')
-        // try {
-        //     const response = await fetch(`http://localhost:3000/room/${roomId}`, {
-        //         method: "GET",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             Authorization: `Bearer ${token}`,
-        //         },
-        //     });
+        try {
+            const response = await fetch(`http://localhost:3000/room/${roomId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
-        //     if (!response.ok) {
-        //         const errorData = await response.json();
-        //         console.error("Error get room:", errorData.errMsg);
-        //         setError(errorData.errMsg);
-        //         return;
-        //     }else{
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Error get room:", errorData.errMsg);
+                setError(errorData.errMsg);
+                return;
+            }else{
 
-        //     const data = await response.json();
-        //     console.log("get room:", data);
-        //     setUserRole(data.userRole)
-        //     // الانتقال إلى صفحة الغرفة بعد الانضمام بنجاح
-        //     navigate(`/room/${roomId}`, {state: {userRole: data.userRole}});
-        //     }
+            const data = await response.json();
+            console.log("get room:", data);
+            setUserRole(data.userRole)
+            // الانتقال إلى صفحة الغرفة بعد الانضمام بنجاح
+            navigate(`/room/${roomId}`, {state: {userRole: data.userRole}});
+            }
 
-        // } catch (error) {
-        //     console.error("Error:", error.errMsg);
-        //     setError(error.errMsg);
-        // }
+        } catch (error) {
+            console.error("Error:", error.errMsg);
+            setError(error.errMsg);
+        }
     }
 
 

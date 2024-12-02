@@ -22,8 +22,7 @@ function App() {
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
           <Route path="/rooms" element={<Rooms></Rooms>}></Route>
           <Route path="/profile" element={<Profile></Profile>}></Route>
-          {/* <Route path="/room/:roomId" element={<Room ></Room>}></Route> */}
-          <Route path="/room" element={<Room ></Room>}></Route>
+          <Route path="/room/:roomId" element={<Room ></Room>}></Route>
         </Routes>
       </Router>
     </RoomsProvider>

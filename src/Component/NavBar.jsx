@@ -11,11 +11,11 @@ export default function NavBar(){
 
         function handleRoomsClick(){
         setError("");
-        // if (!token){
-            // setError("Please log in first")
-        // }else{
+        if (!token){
+            setError("Please log in first")
+        }else{
             navigate('/rooms')
-        // }
+        }
     }
 
         function handleProfileClick(){

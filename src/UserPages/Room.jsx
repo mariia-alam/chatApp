@@ -148,8 +148,8 @@ async function handleLeave() {
             <header>
                 <div className="left-header">
                     <img src={backArrow} onClick={()=>navigate('/rooms')} alt="Back" />
-                    {/* <span id="chat-name">{currentRoomIndex.host.username}</span> */}
-                    <span id="chat-name">Maria Alam</span>
+                    <span id="chat-name">{currentRoomIndex.host.username}</span>
+                    {/* <span id="chat-name">Maria Alam</span> */}
 
                 </div>
                 <div onMouseLeave={handleCloseSetting} onMouseEnter={handleOpenSetting}>

@@ -95,22 +95,21 @@ const result= await Swal.fire({
 }, []);
 
 
-// useEffect(() => {
-//     setError("");
-//     const currentTime = Date.now() / 1000;
-//     if (token) {
-//         const tokenData = JSON.parse(atob(token.split('.')[1]));
-//         if (tokenData.exp < currentTime) {
-//             setError("Please log in again to continue")
-//             navigate("/login");
-//             localStorage.removeItem("authToken");
-//         }
-//     }else{
-//         setError("Please log in again to continue")
-//         navigate('/login')
-//     }
-// }, [token, navigate]);
-
+useEffect(() => {
+    setError("");
+    const currentTime = Date.now() / 1000;
+    if (token) {
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        if (tokenData.exp < currentTime) {
+            setError("Please log in again to continue")
+            navigate("/login");
+            localStorage.removeItem("authToken");
+        }
+    }else{
+        setError("Please log in again to continue")
+        navigate('/login')
+    }
+}, [token, navigate]);
 
     return(
         <div className="rooms">
@@ -138,10 +137,9 @@ const result= await Swal.fire({
             </nav>
             <main>
                 <div className="scrollable-content">
-                {/* {rooms.length === 0 && <p id='note'>No rooms created</p>} */}
+                {rooms.length === 0 && <p id='note'>No rooms created</p>}
                 {rooms.map((room) => (<CreateRoom name={room.host.username} date={room.updatedAt} roomId={room.id} key={room.id}></CreateRoom>
                 ))}
-                <CreateRoom name="maria alam" date="1 dec 2024"></CreateRoom>
                 </div>
             </main>
             {error && <Error message={error}/>}
