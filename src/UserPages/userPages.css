@@ -536,7 +536,6 @@ font-weight:500;
 
 /* room in mobile */
 @media (max-width: 768px) {
-
 .chatting header {
   padding: 1.5rem;
   display: flex;
@@ -568,21 +567,21 @@ font-weight:500;
     border: 1px solid #ccc;
     border-radius: 1rem;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index:25;
+    z-index:100;
     display: flex;
     flex-direction: column;
     justify-content:space-around;
-    width:5rem;
-    height:5rem;
+    width:4rem;
+    height:4rem;
 }
 .dropdown a {
     background: none;
     border: none;
-    padding: 10px;
+    /* padding: 10px; */
     text-align: center;
     width: 100%;
     cursor: pointer;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 .chatting img {
   cursor:pointer;
@@ -592,10 +591,10 @@ font-weight:500;
 
 .chatting main {
     width:100%;
-    height: calc(100vh - 10rem - 5rem);
+    height: calc(100vh - 10rem - 4rem);
     position:fixed;
     overflow:hidden;
-    z-index:20;
+    z-index:10;
     margin-top:9rem;
     overflow-y: auto;
     background: #CCCBD6;
@@ -608,7 +607,7 @@ font-weight:500;
 .chatting main .message-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 
