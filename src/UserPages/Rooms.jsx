@@ -8,10 +8,15 @@ import search from '../assets/search.png'
 import { useState } from 'react';
 import CreateRoom from "../Component/CreateRoom";
 import { useNavigate } from "react-router-dom";
+import { RoomsContext } from "../ContextStore/RoomsContext";
+import { useContext } from "react";
+import NavBar from "../Component/NavBar";
 
 export default function Rooms(){
+  const { rooms, handleFetchRooms  } = useContext(RoomsContext); // استخدام useContext للوصول إلى بيانات الغرف
+
     const [error, setError] = useState("");
-    const [rooms, setRooms] = useState([]);
+    // const [rooms, setRooms] = useState([]);
     const token = localStorage.getItem("authToken");
     const navigate = useNavigate();
 
@@ -19,7 +24,7 @@ async function handleCreate(){
       setError("");
 const result= await Swal.fire({
     title: 'Do you want to create a room?',
-    // icon: 'question', //success, error, warning, info, question
+    //= icon: 'question', //success, error, warning, info, question
     confirmButtonText: 'Create',
     confirmButtonColor: '#9759C7',
     showCancelButton: true,
@@ -28,9 +33,7 @@ const result= await Swal.fire({
     width: '400px',
     customClass: {
         title:'title',
-        popup: 'custom-alert-position',
-        confirmButton: 'custom-confirm-button',
-        cancelButton: 'custom-cancel-button'
+        popup: 'question-popup',
     },
     position: 'center',
 });
@@ -64,63 +67,62 @@ const result= await Swal.fire({
     }
 }
 
-    const handleFetchRooms = useCallback(async()=>{
-        try{
-            const response = await fetch("http://localhost:3000/rooms",{
-                method: "GET",
-                headers: {
-                "Authorization": `Bearer ${token}`,
-                },
-            });
-                if (response.ok) {
-                const responseData = await response.json();
-                console.log("rooms", responseData.rooms);
-                setRooms(responseData.rooms);
-                } else {
-                const errorData = await response.json();
-                setError(errorData.errMsg || "Internal server error");
-                }
-        } catch (err) {
-            console.error("Error fetching rooms:", err);
-            setError("Internal server error");
-        }
-    },[token])
+//     const handleFetchRooms = useCallback(async()=>{
+//         try{
+//             const response = await fetch("http://localhost:3000/rooms",{
+//                 method: "GET",
+//                 headers: {
+//                 "Authorization": `Bearer ${token}`,
+//                 },
+//             });
+//                 if (response.ok) {
+//                 const responseData = await response.json();
+//                 console.log("rooms", responseData.rooms);
+//                 setRooms(responseData.rooms);
+//                 console.log(responseData.rooms)
+//                 } else {
+//                 const errorData = await response.json();
+//                 setError(errorData.errMsg || "Internal server error");
+//                 }
+//         } catch (err) {
+//             console.error("Error fetching rooms:", err);
+//             setError("Internal server error");
+//         }
+//     },[token])
 
     useEffect(() => {
-    handleFetchRooms();
-}, [handleFetchRooms]);
+    handleFetchRooms()
+}, []);
 
 
-// useEffect(() => {
-//     setError("");
-//     const currentTime = Date.now() / 1000;
-//     if (token) {
-//         const tokenData = JSON.parse(atob(token.split('.')[1]));
-//         if (tokenData.exp < currentTime) {
-//             setError("Please log in again to continue")
-//             navigate("/login");
-//             localStorage.removeItem("authToken");
-//         }
-//     }else{
-//         setError("Please log in again to continue")
-//         navigate('/login')
-//     }
-// }, [token, navigate]);
+useEffect(() => {
+    setError("");
+    const currentTime = Date.now() / 1000;
+    if (token) {
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        if (tokenData.exp < currentTime) {
+            setError("Please log in again to continue")
+            navigate("/login");
+            localStorage.removeItem("authToken");
+        }
+    }else{
+        setError("Please log in again to continue")
+        navigate('/login')
+    }
+}, [token, navigate]);
 
     return(
         <div className="rooms">
-            <header className="header">
+            <NavBar></NavBar>
+            {/* <header className="header">
             <img id="logo" src={logo} alt="" />
             <img id="profile" src={profile} alt="" />
-            {/* <svg width="62" height="60" viewBox="0 0 62 60" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M43.6577 18C43.6577 11.382 37.9807 5.99996 31 5.99996C24.0193 5.99996 18.3423 11.382 18.3423 18C18.3423 24.618 24.0193 30 31 30C37.9807 30 43.6577 24.618 43.6577 18ZM55.6319 60H49.9865C48.2398 60 46.8221 58.656 46.8221 57C46.8221 55.344 48.2398 54 49.9865 54H51.344C53.5338 54 55.1509 51.909 54.3218 49.986C50.4897 41.0939 41.49 36 31 36C20.51 36 11.5103 41.0939 7.67823 49.986C6.84915 51.909 8.46622 54 10.656 54H12.0135C13.7602 54 15.1779 55.344 15.1779 57C15.1779 58.656 13.7602 60 12.0135 60H6.36814C2.41262 60 -0.701163 56.571 0.137407 52.908C2.4411 42.8309 9.63387 35.3939 19.1081 32.0189C14.7855 28.7219 12.0135 23.67 12.0135 18C12.0135 7.34696 21.7726 -1.14307 33.2752 0.125931C41.6103 1.04393 48.515 7.3408 49.765 15.2098C50.8409 21.9928 47.9138 28.1879 42.8919 32.0189C52.3661 35.3939 59.5589 42.8309 61.8626 52.908C62.7012 56.571 59.5874 60 55.6319 60ZM40.8761 46.392C42.1134 47.565 42.1134 49.4641 40.8761 50.6371L31 60L24.2883 53.6371C23.051 52.4641 23.051 50.565 24.2883 49.392C25.5224 48.222 27.5255 48.222 28.7628 49.392L31 51.516L36.4016 46.392C37.6389 45.222 39.642 45.222 40.8761 46.392Z" fill="white"/>
-            </svg> */}
-            </header>
+            </header> */}
 
             <nav className="nav">
-                <div className="nav-left">
-                    <p>Rooms</p>
-                </div>
+                {/* <div className="nav-left"> */}
+                    <p>Available Rooms</p>
+                {/* </div> */}
                 <div className="nav-right">
                     <button onClick={handleCreate}>Create Room</button>
                     <img id="search" src={search} alt="" />
@@ -134,14 +136,14 @@ const result= await Swal.fire({
                 </div>
             </nav>
             <main>
-                {rooms.length === 0 && <p id='note'>No rooms created</p>}
-                {rooms.map((room) => (<CreateRoom name={room.host.username} date={room.updatedAt} key={room.id}></CreateRoom>
+                <div className="scrollable-content">
+                {/* {rooms.length === 0 && <p id='note'>No rooms created</p>} */}
+                {rooms.map((room) => (<CreateRoom name={room.host.username} date={room.updatedAt} roomId={room.id} key={room.id}></CreateRoom>
                 ))}
-                {rooms.map((room) => (<CreateRoom name={room.host.username} date={room.updatedAt} key={room.id}></CreateRoom>
-                ))}
+                <CreateRoom name="maria alam" date="1 dec 2024"></CreateRoom>
+                </div>
             </main>
             {error && <Error message={error}/>}
-
         </div>
     );
 }

@@ -1,15 +1,18 @@
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
-import error from '../assets/error.png';
+// import error from '../assets/error.png';
+import error from '../assets/eeeee.png';
 
 export default function Error({message}) {
+            console.log("error component")
+
     useEffect(() => {
         Swal.fire({
         html: `
-                <div class="error-popup">
-                    <img src="${error}" alt="Error Icon" class="error-icon" />
-                    <h2 class="error-title">Error</h2>
-                    <p class="error-message">${message}</p>
+                <div class="popup">
+                    <img src="${error}" alt="Error Icon" class="icon" />
+                    <h2 class="title">Error</h2>
+                    <p class="message">${message}</p>
                 </div>
         `,
         showCancelButton: true,

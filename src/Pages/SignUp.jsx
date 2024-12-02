@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Success from '../Component/Success'
 export default function SignUp(){
     const token = localStorage.getItem("authToken");
     const navigate = useNavigate();
     const [error, setError] = useState("");
+    const [success , setSuccess] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -54,18 +56,23 @@ export default function SignUp(){
                 if (response.ok) {
                 const responseData = await response.json();
                 console.log("User created successfully:", responseData);
-                    Swal.fire({
-                    title: 'Sinup completed successfully ',
-                    text: 'Log in to continue',
-                    icon: 'success', //success, error, warning, info, question
-                    confirmButtonText: 'Ok',
-                    width: '400px',
-                    confirmButtonColor: '#9759C7',
-                    customClass: {
-                    popup: 'custom-popup-error',
-      },
-                    });
-                navigate('/login')
+                console.log("User created successfully:", responseData.msg);
+                setSuccess(responseData.msg + " log in to continue")
+    setTimeout(() => {
+        navigate('/login'); // التنقل بعد وقت قصير
+    }, 1500);
+                    // Swal.fire({
+                    //     title: 'Sinup completed successfully ',
+                    //     text: 'Log in to continue',
+                    //     icon: 'success', //success, error, warning, info, question
+                    //     confirmButtonText: 'Ok',
+                    //     width: '400px',
+                    //     confirmButtonColor: '#9759C7',
+                    //     customClass: {
+                    //     popup: 'custom-popup-error',
+                    //     },
+                    // });
+                // navigate('/login')
                 } else {
                 const errorData = await response.json();
                 setError(errorData.errMsg || "Internal server error");
@@ -126,8 +133,11 @@ export default function SignUp(){
                 )}
 
                 {error && <p style={{ color: "red", fontSize: "12px" }}>{error}</p>}
+
                 <button>SignUp</button>
             </form>
+                        {success && <Success message={success}/>}
+
         </div>
     );
 }
