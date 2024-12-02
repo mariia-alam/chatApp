@@ -206,7 +206,7 @@ justifu-self:start;
     gap:1rem;
 }
 .nav button{
-padding:0.8rem;
+padding:0.5rem;
 border-radius:1rem;
 border:none;
 font-size:0.9rem;
@@ -227,7 +227,7 @@ justify-self:center;
 .rooms main{
     position:fixed;
     z-index:20;
-    margin-top:11rem;
+    margin-top:10rem;
     width: 100%;
     height:100vh;
     border-top-left-radius: 4rem;
@@ -596,7 +596,7 @@ font-weight:500;
     position:fixed;
     overflow:hidden;
     z-index:20;
-    margin-top:11rem;
+    margin-top:10rem;
     overflow-y: auto;
     background: #CCCBD6;
     padding: 0.7rem;
