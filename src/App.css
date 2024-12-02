@@ -87,7 +87,7 @@ body {
 /* Landing Page */
 
 .landing{
-    padding-top:10rem;
+    padding-top:8rem;
     background-image: url('./assets/landing.png');
     background-size: 120%;
     background-position: right 100% top  ;
