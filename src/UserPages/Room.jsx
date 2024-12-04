@@ -10,32 +10,34 @@ import { RoomsContext } from "../ContextStore/RoomsContext";
 import Error from "../Component/Error";
 import Success from '../Component/Success';
 import NavBar from "../Component/NavBar";
-// import { useParams } from "react-router-dom";
+import io from "socket.io-client";
+const socket = io("http://localhost:3000"); // عنوان السيرفر
+
+import { useParams } from "react-router-dom";
 
 export default function Room() {
     // const location = useLocation();
         const [error, setError] = useState("");
         const [success, setSuccess] = useState("");
         
-        // const { roomId } = useParams();
-        // const roomIdN=Number(roomId);
+        const { roomId } = useParams();
+        const roomIdN=Number(roomId);
         const navigate = useNavigate()
         // const  userRole  = location.state || {};
-        const {rooms, userRole } = useContext(RoomsContext);
+        const {rooms, userRole, setUserRole } = useContext(RoomsContext);
         const [dropdownVisible, setDropdownVisible] = useState(false); // حالة القائمة المنسدلة
         const [newMessage, setNewMessage] = useState("");
         const messagesEndRef = useRef(null);
         const textAreaRef = useRef(null);
         const token = localStorage.getItem("authToken");
-
         const currentRoomIndex = rooms.find(room =>
         room.id === userRole.roomId);
 
         const [messages, setMessages] = useState([
-        { id: 1, text: "Hello!", self: false, avatar: "../assets/pic1.jpg" },
-        { id: 2, text: "Hi there!", self: true, avatar: "../assets/user2.png" },
-        { id: 3, text: "How are you?", self: false, avatar: "../assets/user1.png" },
-        { id: 4, text: "I'm good, thanks!", self: true, avatar: "../assets/user2.png" },
+    //     { id: 1, text: "Hello!", self: false, avatar: "../assets/pic1.jpg" },
+    //     { id: 2, text: "Hi there!", self: true, avatar: "../assets/user2.png" },
+    //     { id: 3, text: "How are you?", self: false, avatar: "../assets/user1.png" },
+    //     { id: 4, text: "I'm good, thanks!", self: true, avatar: "../assets/user2.png" },
     ]);
 
 
@@ -60,14 +62,121 @@ export default function Room() {
     };
 
 
-    const sendMessage = () => {
+    async function sendMessage (){
+        console.log(newMessage);
         if (newMessage.trim() === "") return;
-        setMessages([
-            ...messages,
-            { id: messages.length + 1, text: newMessage, self: true, avatar: "../assets/user2.png" },
-        ]);
-        setNewMessage("");
+        try{
+            const response = await fetch(`http://localhost:3000/message/${userRole.roomId}` ,{
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body:JSON.stringify({ message: newMessage }),
+            });
+            if(response.ok){
+                const data = await response.json();
+                console.log("Message sent via rest", data);
+
+
+            // إرسال الرسالة عبر Socket.io
+                socket.emit("message", {
+                    roomid: currentRoomIndex.id,
+                    userid: userRole.userId,
+                    message: newMessage,
+                });
+            //     setMessages((prevMessages) => [
+            //     ...prevMessages,
+            //     { id: data.data.id, text: newMessage, self: true, avatar: pic }
+            // ]);
+                            setNewMessage("");
+
+            }else{
+                const errorData = await response.json();
+                console.error("Error sending message via REST:", errorData);
+                setError(errorData.errMsg)
+            }
+        }catch (err) {
+        console.error("Error:", err.errMsg);
+
+        setError(err.errMsg);
+        }
+
     };
+
+    useEffect(() => {
+    socket.on("message", (data) => {
+            console.log("Message received: ", data);
+                    // التحقق من أن الرسالة تخص الغرفة الحالية
+        if (data.message.roomId === roomId) {
+            const isSelf = data.message.senderId === userRole.userId;
+
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { id: data.message.id, text: data.message.message, self: isSelf, avatar: pic },
+            ]);
+        }
+        //             const isSelf = data.message.senderId === userRole.userId;
+        //             console.log(messages)
+
+        // setMessages((prevMessages) => [
+        //     ...prevMessages,
+        //         { id: data.message.id, text: data.message.message, self: isSelf, avatar: pic }
+        // ]);
+                console.log(messages)
+
+        });
+    return () => {
+        socket.off("message");
+    };
+}, [userRole.userId]);
+
+
+useEffect(() => {
+    const fetchMessages = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:3000/messages/${userRole.roomId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data)
+//  const formattedMessages = data.messages.map((msg) => ({
+//                     ...msg,
+//                     self: msg.senderId === userRole.userId,
+//                 }));
+const formattedMessages = data.messages.map((msg) => ({
+    id: msg.id,
+    text: msg.message,
+    senderId: msg.senderId,
+    self: msg.senderId === userRole.userId,
+})).sort((a, b) => a.id - b.id);
+                setMessages(formattedMessages);
+                console.log(formattedMessages);
+            } else {
+                const errorData = await response.json();
+                console.error("Error fetching messages:", errorData.errMsg);
+                setError(errorData.errMsg)
+            }
+        } catch (error) {
+            console.error("Error:", error.errMsg);
+            setError("Fetching messages failed")
+
+        }
+    };
+
+    fetchMessages();
+}, [userRole.roomId,token,userRole.userId]);
+
+
+
+
 
     const handleOpenSetting = () => {
         setDropdownVisible(true);
@@ -168,13 +277,25 @@ async function handleLeave() {
                 </div>
             </header>
             <main>
-                {/* <div className="scrollable-content"> */}
                 {messages.map((message) => (
                     <div
                         key={message.id}
-                        className={`message-wrapper ${message.self ? "self" : ""}`}
-                    >
-                        {!message.self && (
+                        className={`message-wrapper ${message.self ? "self" : ""}`}>
+                        {message.self && (<>
+                                <img src={pic} alt="User Avatar" className="avatar" />
+                                <div className="message self">
+                                {message.text}
+                                </div>
+                                </>
+                        )}
+                        {!message.self && (<>
+                                <img src={pic} alt="User Avatar" className="avatar" />
+                                <div className="message rec">
+                                {message.text}
+                                </div>
+                                </>
+                        )}
+                        {/* {!message.self && (
                             <img src={pic} alt="User Avatar" className="avatar" />
                         )}
                         <div className={`message ${message.self ? "self" : ""}`}>
@@ -182,45 +303,10 @@ async function handleLeave() {
                         </div>
                         {message.self && (
                             <img src={pic} alt="User Avatar" className="avatar" />
-                        )}
+                        )} */}
                     </div>
                 ))}
-                {messages.map((message) => (
-                    <div
-                        key={message.id}
-                        className={`message-wrapper ${message.self ? "self" : ""}`}
-                    >
-                        {!message.self && (
-                            <img src={pic} alt="User Avatar" className="avatar" />
-                        )}
-                        <div className={`message ${message.self ? "self" : ""}`}>
-                            {message.text}
-                        </div>
-                        {message.self && (
-                            <img src={pic} alt="User Avatar" className="avatar" />
-                        )}
-                    </div>
-                ))}
-                {messages.map((message) => (
-                    <div
-                        key={message.id}
-                        className={`message-wrapper ${message.self ? "self" : ""}`}
-                    >
-                        {!message.self && (
-                            <img src={pic} alt="User Avatar" className="avatar" />
-                        )}
-                        <div className={`message ${message.self ? "self" : ""}`}>
-                            {message.text}
-                        </div>
-                        {message.self && (
-                            <img src={pic} alt="User Avatar" className="avatar" />
-                        )}
-                    </div>
-                ))}
-
-
                 <div ref={messagesEndRef}></div>
-                {/* </div> */}
             </main>
             <footer>
                 <img src={addEmoji} alt="Emoji" />

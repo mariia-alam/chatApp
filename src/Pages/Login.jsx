@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { RoomsContext } from "../ContextStore/RoomsContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function Login(){
     const navigate = useNavigate();
+      const { handleFetchRooms  } = useContext(RoomsContext); // استخدام useContext للوصول إلى بيانات الغرف
+
     const [error, setError] = useState("");
     const [passwordVisible , setPasswordVisible] = useState(false);
     function togglePasswordVisibility(){
@@ -34,6 +37,7 @@ export default function Login(){
             localStorage.setItem("authToken", responseData.token);
             // alert("Login successful!");
             navigate("/rooms");
+
 
         } else {
             const errorData = await response.json();

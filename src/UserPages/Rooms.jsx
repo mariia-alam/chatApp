@@ -13,7 +13,7 @@ import { useContext } from "react";
 import NavBar from "../Component/NavBar";
 
 export default function Rooms(){
-  const { rooms, handleFetchRooms  } = useContext(RoomsContext); // استخدام useContext للوصول إلى بيانات الغرف
+  const { rooms , setRooms } = useContext(RoomsContext); // استخدام useContext للوصول إلى بيانات الغرف
 
     const [error, setError] = useState("");
     // const [rooms, setRooms] = useState([]);
@@ -67,31 +67,32 @@ const result= await Swal.fire({
     }
 }
 
-//     const handleFetchRooms = useCallback(async()=>{
-//         try{
-//             const response = await fetch("http://localhost:3000/rooms",{
-//                 method: "GET",
-//                 headers: {
-//                 "Authorization": `Bearer ${token}`,
-//                 },
-//             });
-//                 if (response.ok) {
-//                 const responseData = await response.json();
-//                 console.log("rooms", responseData.rooms);
-//                 setRooms(responseData.rooms);
-//                 console.log(responseData.rooms)
-//                 } else {
-//                 const errorData = await response.json();
-//                 setError(errorData.errMsg || "Internal server error");
-//                 }
-//         } catch (err) {
-//             console.error("Error fetching rooms:", err);
-//             setError("Internal server error");
-//         }
-//     },[token])
+
+    async function handleFetchRooms(){
+        try {
+            const response = await fetch("http://localhost:3000/rooms", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            });
+            if (response.ok) {
+                const responseData = await response.json();
+                setRooms(responseData.rooms);
+                console.log(responseData.rooms)
+            } else {
+                const errorData = await response.json();
+                setError(errorData.errMsg || "Internal server error");
+            }
+        } catch (err) {
+            console.error("Error fetching rooms:", err);
+            setError("Internal server error");
+        }
+    }
 
     useEffect(() => {
-    handleFetchRooms()
+        console.log("hihi")
+    handleFetchRooms();
 }, []);
 
 

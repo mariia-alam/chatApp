@@ -43,7 +43,8 @@ export default function CreateRoom({ name, date, roomId }) {
             console.log("Joined room:", data);
 
             // الانتقال إلى صفحة الغرفة بعد الانضمام بنجاح
-            navigate(`/room/${roomId}`);
+            // navigate(`/room/${roomId}`);
+            handleGetRoom();
             }
 
         } catch (error) {
@@ -51,7 +52,8 @@ export default function CreateRoom({ name, date, roomId }) {
             setError(error);
         }
     }
-    async function handleGetRoom() {
+    
+     async function handleGetRoom() {
         setError("");
         try {
             const response = await fetch(`http://localhost:3000/room/${roomId}`, {
