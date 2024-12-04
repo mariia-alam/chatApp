@@ -1,12 +1,14 @@
 // flex
 import { useNavigate } from 'react-router-dom';
 import pic from '../assets/pic1.jpg';
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import Error from './Error';
+import Success from '../Component/Success'
 import { RoomsContext } from '../ContextStore/RoomsContext';
 import { useContext } from 'react';
 export default function CreateRoom({ name, date, roomId }) {
-    const {setUserRole , userRole , rooms} = useContext(RoomsContext);
+    const {setUserRole} = useContext(RoomsContext);
+        const [success, setSuccess] = useState("");
 
     const [error,setError] = useState("")
     const token = localStorage.getItem("authToken");
@@ -17,7 +19,7 @@ export default function CreateRoom({ name, date, roomId }) {
     const year = datee.getFullYear();
 
     async function handleJoin(event) {
-            event.stopPropagation(); // منع انتشار الحدث إلى الـ div
+            event.stopPropagation();
 
         setError("");
         try {
@@ -25,12 +27,11 @@ export default function CreateRoom({ name, date, roomId }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`, // إرسال التوكين
+                    Authorization: `Bearer ${token}`,
                 },
                 body:JSON.stringify({
                     roomid: roomId,
                 }),
-                 // يمكن أن يكون فارغًا لأن البيانات في URL والتوكين
             });
 
             if (!response.ok) {
@@ -42,9 +43,11 @@ export default function CreateRoom({ name, date, roomId }) {
             const data = await response.json();
             console.log("Joined room:", data);
 
-            // الانتقال إلى صفحة الغرفة بعد الانضمام بنجاح
             // navigate(`/room/${roomId}`);
-            handleGetRoom();
+            setSuccess(data.message)
+            setTimeout(() => {
+                    handleGetRoom();
+                    }, 1500);
             }
 
         } catch (error) {
@@ -74,8 +77,7 @@ export default function CreateRoom({ name, date, roomId }) {
             const data = await response.json();
             console.log("get room:", data);
             setUserRole(data.userRole)
-            // الانتقال إلى صفحة الغرفة بعد الانضمام بنجاح
-            navigate(`/room/${roomId}`, {state: {userRole: data.userRole}});
+            navigate(`/room/${roomId}`);
             }
 
         } catch (error) {
@@ -96,6 +98,7 @@ export default function CreateRoom({ name, date, roomId }) {
         </span>
         <button onClick={handleJoin} >Join</button>
         {error && <Error message={error}/>}
+        {success && <Success message={success}/>}
 
     </div>
 );

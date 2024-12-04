@@ -1,5 +1,4 @@
 import  { useState, useEffect,useRef, useContext } from "react";
-// import { useLocation } from "react-router-dom";
 import pic from '../assets/pic1.jpg'
 import send from "../assets/send.png";
 import addEmoji from "../assets/add-emoji.png";
@@ -11,20 +10,16 @@ import Error from "../Component/Error";
 import Success from '../Component/Success';
 import NavBar from "../Component/NavBar";
 import io from "socket.io-client";
-const socket = io("http://localhost:3000"); // عنوان السيرفر
+const socket = io("http://localhost:3000");
 
 import { useParams } from "react-router-dom";
 
 export default function Room() {
-    // const location = useLocation();
         const [error, setError] = useState("");
         const [success, setSuccess] = useState("");
-        
         const { roomId } = useParams();
-        const roomIdN=Number(roomId);
         const navigate = useNavigate()
-        // const  userRole  = location.state || {};
-        const {rooms, userRole, setUserRole } = useContext(RoomsContext);
+        const {rooms, userRole } = useContext(RoomsContext);
         const [dropdownVisible, setDropdownVisible] = useState(false); // حالة القائمة المنسدلة
         const [newMessage, setNewMessage] = useState("");
         const messagesEndRef = useRef(null);
@@ -33,12 +28,7 @@ export default function Room() {
         const currentRoomIndex = rooms.find(room =>
         room.id === userRole.roomId);
 
-        const [messages, setMessages] = useState([
-    //     { id: 1, text: "Hello!", self: false, avatar: "../assets/pic1.jpg" },
-    //     { id: 2, text: "Hi there!", self: true, avatar: "../assets/user2.png" },
-    //     { id: 3, text: "How are you?", self: false, avatar: "../assets/user1.png" },
-    //     { id: 4, text: "I'm good, thanks!", self: true, avatar: "../assets/user2.png" },
-    ]);
+        const [messages, setMessages] = useState([]);
 
 
         useEffect(() => {
@@ -79,16 +69,11 @@ export default function Room() {
                 console.log("Message sent via rest", data);
 
 
-            // إرسال الرسالة عبر Socket.io
                 socket.emit("message", {
                     roomid: currentRoomIndex.id,
                     userid: userRole.userId,
                     message: newMessage,
                 });
-            //     setMessages((prevMessages) => [
-            //     ...prevMessages,
-            //     { id: data.data.id, text: newMessage, self: true, avatar: pic }
-            // ]);
                             setNewMessage("");
 
             }else{
@@ -107,7 +92,6 @@ export default function Room() {
     useEffect(() => {
     socket.on("message", (data) => {
             console.log("Message received: ", data);
-                    // التحقق من أن الرسالة تخص الغرفة الحالية
         if (data.message.roomId === roomId) {
             const isSelf = data.message.senderId === userRole.userId;
 
@@ -116,13 +100,6 @@ export default function Room() {
                 { id: data.message.id, text: data.message.message, self: isSelf, avatar: pic },
             ]);
         }
-        //             const isSelf = data.message.senderId === userRole.userId;
-        //             console.log(messages)
-
-        // setMessages((prevMessages) => [
-        //     ...prevMessages,
-        //         { id: data.message.id, text: data.message.message, self: isSelf, avatar: pic }
-        // ]);
                 console.log(messages)
 
         });
@@ -147,10 +124,6 @@ useEffect(() => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data)
-//  const formattedMessages = data.messages.map((msg) => ({
-//                     ...msg,
-//                     self: msg.senderId === userRole.userId,
-//                 }));
 const formattedMessages = data.messages.map((msg) => ({
     id: msg.id,
     text: msg.message,
@@ -230,10 +203,9 @@ async function handleLeave() {
 
             if (response.ok) {
                 const responseData = await response.json();
-                // setError(responseData.message)
                 setSuccess(responseData.message)
     setTimeout(() => {
-        navigate('/rooms'); // التنقل بعد وقت قصير
+        navigate('/rooms'); 
     }, 1500);
                 console.log("rooms", responseData.message);
             } else {
@@ -248,7 +220,23 @@ async function handleLeave() {
     }
 }
 
-
+useEffect(() => {
+    setError("");
+    const currentTime = Date.now() / 1000;
+    if (token) {
+        const tokenData = JSON.parse(atob(token.split('.')[1]));
+        if (tokenData.exp < currentTime) {
+            setError("Please log in again to continue")
+            navigate("/login");
+            localStorage.removeItem("authToken");
+        }
+    }else{
+        setError("Please log in again to continue")
+            setTimeout(() => {
+        navigate('/login');
+    }, 1500);
+    }
+}, [token, navigate]);
 
 
     return (
@@ -258,7 +246,6 @@ async function handleLeave() {
                 <div className="left-header">
                     <img src={backArrow} onClick={()=>navigate('/rooms')} alt="Back" />
                     <span id="chat-name">{currentRoomIndex.host.username}</span>
-                    {/* <span id="chat-name">Maria Alam</span> */}
 
                 </div>
                 <div onMouseLeave={handleCloseSetting} onMouseEnter={handleOpenSetting}>
